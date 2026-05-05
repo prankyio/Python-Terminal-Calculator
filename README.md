@@ -5,7 +5,7 @@ A terminal-based calculator built from scratch in Python that evaluates arithmet
 This project does **not** use `eval()` or external libraries for calculations.  
 Instead, it manually scans operators, extracts numbers, performs operations, and rebuilds the expression step-by-step.
 
-<img width="1121" height="1361" alt="IMG_2763" src="https://github.com/user-attachments/assets/7a5cceed-be86-4929-90d6-1a6f26e4d9ee" />
+<img width="1121" height="1361" src="images\working explanation of Terminal Calculator.PNG" />
 
 
 
@@ -21,36 +21,48 @@ Instead, it manually scans operators, extracts numbers, performs operations, and
 - Decimal outputs
 - Sequential expression solving
 
-⚠️ Known Issue:
+⚠️ Known Issues :
 
-Operator precedence handling is currently being improved.
+Operator precedence and left-to-right evaluation are currently being improved.
 
-At the moment, the program processes:
+The current implementation processes operators in fixed groups:
+- All division first
+- Then multiplication
+- Then addition
+- Then subtraction
 
-1. All division first  
-2. Then multiplication  
-3. Then addition  
-4. Then subtraction
+This causes incorrect results because real arithmetic follows:
+- Same precedence operators (*, /) evaluated left-to-right
+- Same precedence operators (+, -) evaluated left-to-right
 
-But mathematically, `*` and `/` should have equal precedence and be solved left-to-right.
-
-Example:
+### Example 1:
 
 Expression:
 
 7882/57/9*393/7/8-8+8-20
 
 
-Current Output:
+Current Output: 71.82
 
-71.82
+Expected Output: 87.82
 
-<img width="1586" height="572" alt="Screenshot 2026-04-25 022340" src="https://github.com/user-attachments/assets/4bd3ffe7-052d-484e-a057-c610c200eed1" />
+<img width="1586" height="572" src="images\precedence_error1.png" />
 
 
-Expected Output:
 
-87.82
+### Example 2:
+
+Expression:
+
+7/3+5*2-3+6
+
+
+Current Output: 3.33333333333
+
+Expected Output: 15.3333333333
+
+<img width="1086" height="437" src="images\precedence_error2.png" />
+
 
 
 This fix is currently in progress.
