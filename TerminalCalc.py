@@ -69,7 +69,7 @@ def Calculate_string ( nobracket_str , oi ):  #oi = operator index
 
         output_str = str(result)
     
-    print("Leftnum =>" , left_num , "Rightnum =>", right_num , "outputstr=>", output_str,"\n")
+    # DEBUG CODE -- print("Leftnum =>" , left_num , "Rightnum =>", right_num , "outputstr=>", output_str,"\n")
     
     
     return output_str
