@@ -78,12 +78,11 @@ def Calculate_string ( nobracket_str , oi ):  #oi = operator index
 def bodmas (nobracket_str):
     
     i=0
-    j=0
     k=0
-    p=0
-    while(i<len(nobracket_str)): #This will remove all the division operators '/' after solving them 
 
-        if (nobracket_str[i] == '/') :
+    while(i<len(nobracket_str)): #This will remove all the division'/' and multiplication'*' operators after solving them 
+
+        if (nobracket_str[i] == '/' or nobracket_str[i] == '*') :
 
             nobracket_str = Calculate_string(nobracket_str , i)
             
@@ -91,35 +90,15 @@ def bodmas (nobracket_str):
 
         i+=1
 
-    while(j<len(nobracket_str)): #This will remove all the multiplication operators '*' after solving them
+    while(k<len(nobracket_str)): #This will remove all the addition'+' and subtraction'-' operators after solving them
 
-        if (nobracket_str[j] == '*') :
-
-            nobracket_str = Calculate_string(nobracket_str , j)
-            
-            j=0
-
-        j+=1
-    
-    while(k<len(nobracket_str)): #This will remove all the addition operators '+' after solving them
-
-        if (nobracket_str[k] == '+') :
+        if (nobracket_str[k] == '+' or nobracket_str[k] == '-') :
 
             nobracket_str = Calculate_string(nobracket_str , k)
             
             k=0
 
         k+=1
-    
-    while(p<len(nobracket_str)): #This will remove all the subtraction operators '-' after solving them
-
-        if (nobracket_str[p] == '-') :
-
-            nobracket_str = Calculate_string(nobracket_str , p)
-            
-            p=0
-        
-        p+=1
     
 
     return nobracket_str

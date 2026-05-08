@@ -1,15 +1,24 @@
-# Python Terminal Calculator (Work in Progress)
+# Python Terminal Calculator
 
 A terminal-based calculator built from scratch in Python that evaluates arithmetic expressions using custom string parsing logic.
 
 This project does **not** use `eval()` or external libraries for calculations.  
 Instead, it manually scans operators, extracts numbers, performs operations, and rebuilds the expression step-by-step.
 
-<img width="1121" height="1361" src="images\working explanation of Terminal Calculator.PNG" />
+<img width="1149" height="1369" src="images\working explanation of Terminal Calculator.PNG" />
 
 
+## Latest Update (v1.1)
 
-## Current Status
+### Changes
+- Fixed operator precedence handling
+- Corrected left-to-right evaluation logic
+- Improved expression parsing behavior
+- Added cleaner output examples
+
+---
+
+## Current features
 
 ✅ Supports:
 
@@ -20,52 +29,6 @@ Instead, it manually scans operators, extracts numbers, performs operations, and
 - Multi-digit numbers
 - Decimal outputs
 - Sequential expression solving
-
-⚠️ Known Issues :
-
-Operator precedence and left-to-right evaluation are currently being improved.
-
-The current implementation processes operators in fixed groups:
-- All division first
-- Then multiplication
-- Then addition
-- Then subtraction
-
-This causes incorrect results because real arithmetic follows:
-- Same precedence operators (*, /) evaluated left-to-right
-- Same precedence operators (+, -) evaluated left-to-right
-
-### Example 1:
-
-Expression:
-
-7882/57/9*393/7/8-8+8-20
-
-
-Current Output: 71.82
-
-Expected Output: 87.82
-
-<img width="1586" height="572" src="images\precedence_error1.png" />
-
-
-
-### Example 2:
-
-Expression:
-
-7/3+5*2-3+6
-
-
-Current Output: 3.33333333333
-
-Expected Output: 15.3333333333
-
-<img width="1086" height="437" src="images\precedence_error2.png" />
-
-
-
-This fix is currently in progress.
 
 ---
 
@@ -114,10 +77,8 @@ then later:
 
 This function repeatedly scans the string and solves operators in this order:
 
-- `/`
-- `*`
-- `+`
-- `-`
+- `/` or `*`
+- `+` or `-`
 
 Each solved operation shortens the string until only one result remains.
 
@@ -125,23 +86,26 @@ Each solved operation shortens the string until only one result remains.
 
 ## Challenges Solved During Development
 
+- Precedence handling for /,* and +,- operators
 - String index out of range errors
 - Loop issues while modifying string length
 - Number slicing edge cases
 - Rebuilding updated expressions dynamically
 
+## Development Notes
+
+One major challenge during development was correctly implementing operator precedence and left-to-right evaluation for operators with equal precedence.
+
 ---
 
 ## Example Run
 
-```bash
-Enter the operation here :- 10+5*2
+Expression to be evaluated : 7882/57/9*393/7/8-8+8-20
 
-Output:
-20
-```
+<img width="1105" height="280" src="images\Correct Output - From TerminalCalc.png" />
+
+
 ##  Future Improvements
-- Correct left-to-right precedence for * and /
 - Bracket support ()
 - Better input validation
 - Cleaner code structure
