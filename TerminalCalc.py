@@ -1,4 +1,4 @@
-#Function for BODMAS calculations - takes a string as input involving NO brackets 
+#Function for performing the BODMAS calculations - takes a string(involving NO brackets) and operator's index as input 
 def Calculate_string ( nobracket_str , oi ):  #oi = operator index    
 
     prev_oi =0
@@ -75,6 +75,7 @@ def Calculate_string ( nobracket_str , oi ):  #oi = operator index
     return output_str
 
 
+#Function which decides the order of operations - takes a string(involving NO brackets) as input 
 def bodmas (nobracket_str):
     
     i=0
@@ -104,6 +105,84 @@ def bodmas (nobracket_str):
     return nobracket_str
     
 
+#Function to Solve And remove brackets 
+def BracketSolver(fullstring):
+
+    Br_list=[0]
+
+    while(Br_list!=[]): #Outer_loop
+
+        Br_list=[]
+        j =0
+        skip_outer=False
+
+
+        for i in range(0,len(fullstring)): #Creating New Br_list for modified fullstring in each iteration
+
+            if fullstring[i] in ("{" , "}" , "[" , "]" , "(" , ")" ):
+
+                Br_list.insert(j , [fullstring[i],i] )
+                j+=1
+
+
+        #Solving & Removing the closest/Smallest bracket Precedence wise, {} 👉 [] 👉 ()
+
+        '''
+            📌 Br_list[i][0] and Br_list[i+1][0] used to check whether 
+                opening and closing brackets are adjacent or not (i.e there is no other bracket between them)
+            
+            📌 Br_list[i][1] and Br_list[i+1][1] are used to access the indexes of those 
+                opening and closing brackets IN THE fullstring
+            
+        '''
+        
+        for i in range(0,len(Br_list)):
+
+            if Br_list[i][0] == "{" and Br_list[i+1][0]=="}" : 
+
+                 result = bodmas (fullstring[ Br_list[i][1]+1  : Br_list[i+1][1]  ])
+
+                 fullstring= fullstring[0 : Br_list[i][1] ] + result + fullstring[ Br_list[i+1][1]+1 : ]
+                 skip_outer = True
+                 break
+
+        if skip_outer:
+            continue
+        
+        for i in range(0,len(Br_list)):
+
+            if Br_list[i][0] == "[" and Br_list[i+1][0]=="]" :
+
+                 result = bodmas (fullstring[ Br_list[i][1]+1  : Br_list[i+1][1]  ])
+
+                 fullstring= fullstring[0 : Br_list[i][1] ] + result + fullstring[ Br_list[i+1][1]+1 : ]
+                 skip_outer= True
+                 break
+        
+        if skip_outer:
+            continue
+        
+        for i in range(0,len(Br_list)):
+
+            if Br_list[i][0] == "(" and Br_list[i+1][0]==")" : 
+
+                 result = bodmas (fullstring[ Br_list[i][1]+1  : Br_list[i+1][1]  ])
+
+                 fullstring= fullstring[0 : Br_list[i][1] ] + result + fullstring[ Br_list[i+1][1]+1 : ]
+                 skip_outer= True
+                 break
+
+        if skip_outer:
+            continue
+    
+    
+
+    if Br_list==[] :
+            return bodmas(fullstring)
+        
+
+
+
 op_string = input ('''Enter the full operation to be performed -
                           Make sure to use the correct operators as follows :
                           / ---> for division
@@ -111,10 +190,17 @@ op_string = input ('''Enter the full operation to be performed -
                           + ---> for addition
                           - ---> for subtraction
                           
+                          AND 
+                          
+                          Correct brackets as follows:
+                          {} ---> for braces {curly brackets}
+                          [] ---> for square brackets
+                          () ---> for parantheses
+                          
                           Enter the operation here :- ''')
 
 
-print ("The output of the full operation according to BODMAS is ===>", bodmas(op_string))
+print ("The output of the full operation according to BODMAS is ===>", BracketSolver(op_string))
 
 
 
